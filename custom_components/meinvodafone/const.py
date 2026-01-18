@@ -15,7 +15,7 @@ MINT_HOST = "https://www.vodafone.de/mint"
 API_HOST = "https://www.vodafone.de/api"
 API_V2_HOST = "https://api.vodafone.de/meinvodafone/v2/"
 
-USER_AGENT = "MeinVodafone/14.3 (iPhone; iOS 17.4; Scale/3.00)"
+USER_AGENT = "MeinVodafone/15.4.4 (android)"
 CLIENT_ID = "ddbd0b14-2db1-11ec-a0b8-9457a55a403c-app"
 HEADER_REFERER = "https://www.vodafone.de/meinvodafone/services/"
 

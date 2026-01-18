@@ -1,6 +1,9 @@
 """MeinVodafone API."""
 
+import base64
+import hashlib
 import logging
+import secrets
 import time
 from typing import Any
 
@@ -10,6 +13,7 @@ from .const import (
     API_HOST,
     API_TIMEOUT,
     BILLING,
+    CLIENT_ID,
     CURRENT_SUMMARY,
     CYCLE_END,
     CYCLE_START,
@@ -41,6 +45,42 @@ class MeinVodafoneAPI:
         self.session = ClientSession()
         self.is_authenticated = False
 
+    def _generate_code_verifier(self) -> str:
+        """Generate a random code verifier for PKCE.
+
+        Returns:
+            43-character random string using alphanumeric and special chars
+        """
+        # Characters allowed in code verifier (unreserved characters from RFC 3986)
+        chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz-._~"
+        # Generate 43 random characters
+        code_verifier = "".join(secrets.choice(chars) for _ in range(43))
+        _LOGGER.debug("Generated code_verifier: %s", code_verifier)
+        return code_verifier
+
+    def _generate_code_challenge(self, code_verifier: str) -> str:
+        """Generate code challenge from code verifier using SHA256.
+
+        Args:
+            code_verifier: The random code verifier string
+
+        Returns:
+            Base64-URL-encoded SHA256 hash of the code verifier
+        """
+        # SHA256 hash the code verifier
+        sha256_hash = hashlib.sha256(code_verifier.encode("utf-8")).digest()
+
+        # Base64 encode
+        base64_encoded = base64.b64encode(sha256_hash).decode("utf-8")
+
+        # URL-safe base64: replace +/= with -_
+        code_challenge = (
+            base64_encoded.replace("+", "-").replace("/", "_").replace("=", "")
+        )
+
+        _LOGGER.debug("Generated code_challenge: %s", code_challenge)
+        return code_challenge
+
     async def close(self) -> None:
         """Close the API session."""
         if self.session:
@@ -48,16 +88,48 @@ class MeinVodafoneAPI:
         self.is_authenticated = False
 
     async def login(self) -> bool:
-        """Start session API."""
+        """Start session API with two-step authentication."""
         _LOGGER.debug("Initiating new login for %s", self.username)
 
         try:
+            # Step 1: Call OIDC authorize to get cookies
+            code_verifier = self._generate_code_verifier()
+            code_challenge = self._generate_code_challenge(code_verifier)
+
+            authorize_url = (
+                f"{MINT_HOST}/oidc/authorize"
+                f"?response_type=code"
+                f"&client_id={CLIENT_ID}"
+                f"&scope=openid%20profile%20validate-token%20offline_access%20webseal"
+                f"&redirect_uri=mvapp://oidclogin"
+                f"&code_challenge={code_challenge}"
+                f"&code_challenge_method=S256"
+                f"&prompt=none"
+            )
+
+            _LOGGER.debug("Step 1: Calling OIDC authorize to collect cookies")
+            async with self.session.get(
+                authorize_url,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                },
+                timeout=API_TIMEOUT,
+                allow_redirects=False,
+            ) as response:
+                _LOGGER.debug("OIDC authorize status: %s", response.status)
+                _LOGGER.debug("Cookies collected: %s", self.session.cookie_jar)
+
+                if response.status not in (200, 302):
+                    _LOGGER.error("Failed to call OIDC authorize: %s", response.status)
+                    self.is_authenticated = False
+                    return False
+
+            # Step 2: Use collected cookies to authenticate via API
+            _LOGGER.debug("Step 2: Authenticating with collected cookies")
             payload = {
                 "authnIdentifier": self.username,
                 "credential": self.password,
-                "context": "",
-                "conversation": "",
-                "targetURL": "",
             }
             url = f"{MINT_HOST}/rest/v60/session/start"
             headers = {
@@ -76,6 +148,7 @@ class MeinVodafoneAPI:
                     _LOGGER.debug("Response: %s", response_data)
                     if response_data.get("userId"):
                         self.is_authenticated = True
+                        _LOGGER.debug("Login successful for user: %s", self.username)
                         return True
                 else:
                     response_text = await response.text()
