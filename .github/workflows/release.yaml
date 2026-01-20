@@ -20,7 +20,7 @@ jobs:
       - name: "Adjust version number"
         shell: "bash"
         run: |
-          yq -i -o json '.version="${{ github.event.release.tag_name }}"' \
+          yq -i -p json -o json '.version="${{ github.event.release.tag_name }}"' \
             "${{ github.workspace }}/custom_components/meinvodafone/manifest.json"
 
       - name: "ZIP the integration directory"
