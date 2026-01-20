@@ -1,5 +1,8 @@
 {
     "name": "MeinVodafone",
     "homeassistant": "2025.10.0",
-    "country": "DE"
+    "country": "DE",
+    "hide_default_branch": true,
+    "zip_release": true,
+    "filename": "meinvodafone.zip"
 }
