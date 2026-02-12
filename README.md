@@ -1,36 +1,55 @@
-![Version](https://img.shields.io/github/v/release/stickpin/homeassistant-meinvodafone)
-![Downloads](https://img.shields.io/github/downloads/stickpin/homeassistant-meinvodafone/total)
-![CodeStyle](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)
-[![CodeQL](https://github.com/stickpin/homeassistant-meinvodafone/actions/workflows/codeql.yml/badge.svg)](https://github.com/stickpin/homeassistant-meinvodafone/actions/workflows/codeql.yml)
+<div align="center">
+  <img src="https://github.com/Bitte-ein-Git/ha_meinvf/blob/dev/images/vf.png" alt="VF Icon" width="256">
+</div>
 
+</br></br>
 
-# MeinVodafone - Home Assistant Integration
+<div id="toc">
+  <ul align="center" style="list-style: none">
+    <summary>
+      <h1 style="border-bottom: 0; display: inline-block;">
+        <b>📶• MeinVodafone</b></br>
+          <sub><i><u>Home Assistant Integration</i> 🏡</u></sub></h1>
+    </summary>
+  </ul>
+</div>
 
-## About this repo
-I've developed this integration to monitor my children's data usage, ensuring they don't exceed their allotted limits.
+</br>
 
-This project enables the monitoring of your Vodafone DE mobile phone contract's Minutes/SMS/Data usage through Home Assistant.
+## Installation (Easy)
+> [!NOTE]
+> You may need to enter your Home Assistant URL/IP address first.
 
-I hope this integration will be helpful for you as well.
+### Simply use this button to automatically navigate to the HACS repository in your Home Assistant!
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/stickpin)
+[![ADD][hacs2]](https://ha-link.heyfordy.de/redirect/hacs_repository/?owner=Bitte-ein-Git&repository=ha_meinvf&category=integration)
 
-[![buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png)](https://www.buymeacoffee.com/stickpin)
+## Installation (Manual)
+1. Add this Repository to HACS:
+   - HACS > 3 dots > "Add custom repository"
+   - URL: `Bitte-ein-Git/ha_meinvf`
+   - Type: Integration
 
----
+2. Select "**📶• MeinVodafone**".
 
-## Installation
-I recommend installing it via [HACS](https://github.com/hacs/integration)
+<hr>
 
-Currently, integration is not part of the HACS, so you will have to add the repository manually:
-1. Go to HACS -> Integrations
-2. Add this repo to your HACS custom repositories
-3. Search for MeinVodafone and Download it
-4. Restart your HomeAssistant
+## Configuration
 
----
+> [!CAUTION]
+> After installation you **have to restart Home Assistant**
 
-### Setup the Integration
+### Easy Configuration (Link to Config Screen)
+[![ADD][setup2]](https://ha-link.heyfordy.de/redirect/config_flow_start/?domain=meinvf)
+### Manual Configuration
+1. Add a new config entry via UI:
+   - Go to your Home Assistant **Settings**
+   - Select "**Devices & services**"
+   - At the bottom right select "**+ Add integration**"
+
+2. Select "**📶• MeinVodafone**".
+
+### 3. Setup the Integration
 
 1. Go to Settings -> Devices & Services
 2. Shift reload your browser
@@ -68,3 +87,17 @@ Currently, integration is not part of the HACS, so you will have to add the repo
 - Billing Cycle (days left)
 
 ![sensors_screenshot](images/sensors_screenshot.png)
+
+<hr>
+
+[![HACS][hacsbadge]](https://hacs.xyz)
+
+# License
+
+[Apache-2.0](LICENSE). By providing a contribution, you agree the contribution is licensed under Apache-2.0. This is required for Home Assistant contributions.
+
+[hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
+[hacs1]: https://img.shields.io/badge/HACS-%23ff8c00.svg?style=for-the-badge&logo=homeassistantcommunitystore&label=Add%20Repository%20to
+[hacs2]: https://ha-link.heyfordy.de/badges/hacs_repository.svg
+[setup1]: https://img.shields.io/badge/HA-%2318BCF2.svg?style=for-the-badge&logo=homeassistant&label=Add%20Integration%20to
+[setup2]: https://ha-link.heyfordy.de/badges/config_flow_start.svg

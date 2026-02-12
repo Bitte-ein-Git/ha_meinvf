@@ -9,7 +9,7 @@ DEFAULT_UPDATE_INTERVAL = 15
 MAX_UPDATE_RETRY_COUNT = 2
 REQUEST_TIMEOUT = 10
 MIN_LOGIN_DELAY = 5
-API_TIMEOUT = 60  # seconds
+API_TIMEOUT = 60
 
 MINT_HOST = "https://www.vodafone.de/mint"
 API_HOST = "https://www.vodafone.de/api"
@@ -30,6 +30,7 @@ BILLING = "billing"
 DATA = "data"
 SMS = "sms"
 MINUTES = "minutes"
+TARIFF = "tariff"
 
 NAME = "name"
 LAST_UPDATE = "last_update"
@@ -42,3 +43,8 @@ CURRENT_SUMMARY = "current_summary"
 LAST_SUMMARY = "last_summary"
 CYCLE_START = "cycle_start"
 CYCLE_END = "cycle_end"
+
+# New constants for plan and data validity
+PLAN_NAME = "plan_name"
+PLAN_PRICE = "plan_price"
+DATA_VALID_UNTIL = "data_valid_until"

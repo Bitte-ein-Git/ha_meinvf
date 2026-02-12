@@ -28,8 +28,8 @@ Please check if the bug is already reported and add more information there inste
   MANDATORY: Fill in the following details.
   Issues lacking those details may be subject to closure without prior notice.
 -->
-- homeassistant-meinvodafone release with the issue:
-- Last working homeassistant-meinvodafone release (if known):
+- ha_meinvf release with the issue:
+- Last working ha_meinvf release (if known):
 - Home Assistant Core release with the issue:
 - Have you verified if MeinVodafone app or Website is working for you?:
 
