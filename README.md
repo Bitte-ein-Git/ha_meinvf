@@ -8,7 +8,7 @@
   <ul align="center" style="list-style: none">
     <summary>
       <h1 style="border-bottom: 0; display: inline-block;">
-        <b>📶• MeinVodafone</b></br>
+        <b>📶• MeinVF</b></br>
           <sub><i><u>Home Assistant Integration</i> 🏡</u></sub></h1>
     </summary>
   </ul>
@@ -30,7 +30,7 @@
    - URL: `Bitte-ein-Git/ha_meinvf`
    - Type: Integration
 
-2. Select "**📶• MeinVodafone**".
+2. Select "**📶• MeinVF**".
 
 <hr>
 
@@ -40,14 +40,14 @@
 > After installation you **have to restart Home Assistant**
 
 ### Easy Configuration (Link to Config Screen)
-[![ADD][setup2]](https://ha-link.heyfordy.de/redirect/config_flow_start/?domain=meinvf)
+[![ADD][setup2]](https://ha-link.heyfordy.de/redirect/config_flow_start/?domain=meinvodafone)
 ### Manual Configuration
 1. Add a new config entry via UI:
    - Go to your Home Assistant **Settings**
    - Select "**Devices & services**"
    - At the bottom right select "**+ Add integration**"
 
-2. Select "**📶• MeinVodafone**".
+2. Select "**📶• MeinVF**".
 
 ### 3. Setup the Integration
 
@@ -55,7 +55,7 @@
 2. Shift reload your browser
 3. Click Add Integration
 
-4. Search for MeinVodafone<br />
+4. Search for MeinVF<br />
 ![find_integration](images/find_integration.png)
 
 5. Enter your username and password, press submit<br />

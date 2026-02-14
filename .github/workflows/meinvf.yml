@@ -1,9 +1,47 @@
-name: 🌀 Validate and Release
+name: 🌀 Create 'MeinVF' Release
 
 on:
   workflow_dispatch:
 
 jobs:
+  delete-runs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write # Required permission to delete runs
+
+    steps:
+      - name: Delete all completed workflow runs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          echo "Starting cleanup of workflow runs for $GH_REPO"
+          
+          # We loop because the 'gh run list' command is paginated (max 100 per page)
+          while true; do
+            # Fetch a batch of run IDs (only completed)
+            RUN_IDS=$(gh run list --repo $GH_REPO --status completed --limit 100 --json databaseId -q '.[].databaseId')
+
+            # Exit loop if no runs are found (jq returns empty string)
+            if [ -z "$RUN_IDS" ]; then
+              echo "No more completed runs to delete."
+              break
+            fi
+
+            echo "Found batch of runs to delete..."
+            
+            # Loop through IDs and delete
+            for RUN_ID in $RUN_IDS; do
+              echo "Deleting run: $RUN_ID"
+              gh run delete $RUN_ID
+              sleep 0.25 # Short sleep to avoid hitting API rate limits too hard
+            done
+            
+            echo "Batch deleted. Checking for more..."
+          done
+          
+          echo "Cleanup complete."
+
   validate-hassfest:
     name: ☑️ Validate with hassfest
     runs-on: "ubuntu-latest"
@@ -50,7 +88,7 @@ jobs:
           # Set environment variables for subsequent steps
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
-          echo "RELEASE_TITLE=v$VERSION" - 𝗱𝗲𝘃>> $GITHUB_ENV
+          echo "RELEASE_TITLE=MeinVF v$VERSION">> $GITHUB_ENV
 
       - name: Check for existing tag
         id: check_tag
