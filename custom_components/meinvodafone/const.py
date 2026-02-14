@@ -44,7 +44,6 @@ LAST_SUMMARY = "last_summary"
 CYCLE_START = "cycle_start"
 CYCLE_END = "cycle_end"
 
-# New constants for plan and data validity
 PLAN_NAME = "plan_name"
 PLAN_PRICE = "plan_price"
 DATA_VALID_UNTIL = "data_valid_until"

@@ -1,6 +1,6 @@
 {
   "domain": "meinvodafone",
-  "name": "📶 MeinVodafone",
+  "name": "📶 MeinVF",
   "codeowners": ["@stickpin", "@Bitte-ein-Git", "@elias1731"],
   "config_flow": true,
   "dependencies": [],
@@ -11,6 +11,6 @@
   "issue_tracker": "https://github.com/Bitte-ein-Git/ha_meinvf/issues",
   "requirements": [],
   "ssdp": [],
-  "version": "1.0.0-dev",
+  "version": "1.0.1-dev",
   "zeroconf": []
 }

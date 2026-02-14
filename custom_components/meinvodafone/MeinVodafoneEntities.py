@@ -1,41 +1,38 @@
-"""MeinVodafone Entities."""
+"""MeinVodafone Entities definition."""
 
 import logging
 from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 from homeassistant.components.sensor.const import UnitOfTime
 from homeassistant.const import CURRENCY_EURO
-from homeassistant.helpers.entity import EntityCategory
 from .MeinVodafoneContract import MeinVodafoneContract
 
 _LOGGER = logging.getLogger(__name__)
 
 class BaseEntity:
-    """Base class for components."""
-    def __init__(self, component, attr, name, icon=None, plan_name=None, entity_type=None, device_class=None, state_class=None, display_precision=None):
+    """Base for integration entities."""
+    def __init__(self, component, attr, name, icon=None, device_class=None, state_class=None, precision=None):
         self.attr = attr
         self.component = component
         self.name = name
         self.icon = icon
-        self.plan_name = plan_name
-        self.entity_type = entity_type
         self.device_class = device_class
         self.state_class = state_class
-        self.display_precision = display_precision
+        self.display_precision = precision
         self.contract = None
 
     def setup(self, contract) -> bool:
+        """Check if attribute is supported by contract."""
         self.contract = contract
-        supp_attr = f"is_{self.attr}_supported"
-        return getattr(self.contract, supp_attr, False)
+        return getattr(self.contract, f"is_{self.attr}_supported", False)
 
 class Sensor(BaseEntity):
-    """Sensor entity definition."""
-    def __init__(self, attr, name, icon, unit, plan_name=None, entity_type=None, device_class=None, state_class=None, display_precision=None):
-        super().__init__("sensor", attr, name, icon, plan_name, entity_type, device_class, state_class, display_precision)
+    """Sensor specific entity definition."""
+    def __init__(self, attr, name, icon, unit, device_class=None, state_class=None, precision=None):
+        super().__init__("sensor", attr, name, icon, device_class, state_class, precision)
         self.unit = unit
 
 def create_entities() -> list[Sensor]:
-    """Return entity list."""
+    """List of all possible sensors."""
     return [
         Sensor("plan_name", "Plan name", "mdi:cellphone-information", None),
         Sensor("plan_price", "Plan price", "mdi:cash-multiple", None),
@@ -55,6 +52,6 @@ def create_entities() -> list[Sensor]:
     ]
 
 class MeinVodafoneEntities:
-    """Access class."""
+    """Helper to manage entities."""
     def __init__(self, contract: MeinVodafoneContract):
         self.entities_list = [e for e in create_entities() if e.setup(contract)]
