@@ -24,7 +24,7 @@
 
 ### Simply use this button to automatically navigate to the HACS repository in your Home Assistant!
 
-[![ADD][hacs2]](https://ha-link.heyfordy.de/redirect/hacs_repository/?owner=Bitte-ein-Git&repository=ha_meinvf&category=integration)
+[![ADD][hacs2]](https://ha-link.heyfordy.dev/redirect/hacs_repository/?owner=Bitte-ein-Git&repository=ha_meinvf&category=integration)
 
 ## Installation (Manual)
 1. Add this Repository to HACS:
@@ -46,7 +46,7 @@
 > After installation you **have to restart Home Assistant**
 
 ### Easy Configuration (Link to Config Screen)
-[![ADD][setup2]](https://ha-link.heyfordy.de/redirect/config_flow_start/?domain=meinvodafone)
+[![ADD][setup2]](https://ha-link.heyfordy.dev/redirect/config_flow_start/?domain=meinvodafone)
 ### Manual Configuration
 1. Add a new config entry via UI:
    - Go to your Home Assistant **Settings**
@@ -67,6 +67,6 @@
 
 [hacsbadge]: https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge
 [hacs1]: https://img.shields.io/badge/HACS-%23ff8c00.svg?style=for-the-badge&logo=homeassistantcommunitystore&label=Add%20Repository%20to
-[hacs2]: https://ha-link.heyfordy.de/badges/hacs_repository.svg
+[hacs2]: https://ha-link.heyfordy.dev/badges/hacs_repository.svg
 [setup1]: https://img.shields.io/badge/HA-%2318BCF2.svg?style=for-the-badge&logo=homeassistant&label=Add%20Integration%20to
-[setup2]: https://ha-link.heyfordy.de/badges/config_flow_start.svg
+[setup2]: https://ha-link.heyfordy.dev/badges/config_flow_start.svg
